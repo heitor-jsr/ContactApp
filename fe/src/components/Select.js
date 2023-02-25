@@ -16,4 +16,9 @@ export default styled.select`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
+
+  &[disabled] {
+    border-color: ${({ theme }) => theme.colors.grey[100]};
+    border-color: ${({ theme }) => theme.colors.grey[200]};
+  }
 `;
