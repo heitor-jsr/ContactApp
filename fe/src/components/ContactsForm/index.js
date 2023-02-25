@@ -10,13 +10,14 @@ import { Form, ButtonContainer } from './styles';
 import Button from '../Button';
 import isEmailValid from '../../utils/validateEmail';
 
-export default function ContactForm({ buttonLabel }) {
+export default function ContactForm({ buttonLabel, onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [categories, setCategories] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     errors,
@@ -66,6 +67,9 @@ export default function ContactForm({ buttonLabel }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    onSubmit({
+      name, email, phone, categoryId,
+    });
   }
 
   return (
@@ -125,4 +129,5 @@ export default function ContactForm({ buttonLabel }) {
 
 ContactForm.propTypes = {
   buttonLabel: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
