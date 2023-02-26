@@ -24,8 +24,8 @@ export const StyledButton = styled.button`
   }
 
   &[disabled] {
-    background: #ccc;
-    cursor: default;
+    background: #ccc !important;
+    cursor: default !important;
   }
   /* se a propriedade danger estiver ativa, é executada a função css importada do styled, que vai sobrescrever todos os estilos da aplicação que são impactados pelo danger */
   ${({ theme, danger }) => danger && css`
