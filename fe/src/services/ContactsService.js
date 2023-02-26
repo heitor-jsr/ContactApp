@@ -13,8 +13,16 @@ class ContactsService {
     });
   }
 
+  getContactById(id) {
+    return this.HttpClient.get(`/contacts/${id}`);
+  }
+
   createContact(contact) {
     return this.HttpClient.post('/contacts', { body: contact });
+  }
+
+  updateContact(id, contact) {
+    return this.HttpClient.put(`/contacts/${id}`, { body: contact });
   }
 }
 
