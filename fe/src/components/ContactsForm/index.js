@@ -65,17 +65,23 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
     setPhone(formatPhone(event.target.value));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    onSubmit({
+
+    setIsSubmitting(true);
+
+    await onSubmit({
       name, email, phone, categoryId,
     });
+
+    setIsSubmitting(false);
   }
 
   return (
     <Form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
+          disabled={isSubmitting}
           error={getErrorMessageByFieldName('name')}
           value={name}
           placeholder="Nome *"
@@ -86,6 +92,7 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
         error={getErrorMessageByFieldName('email')}
       >
         <Input
+          disabled={isSubmitting}
           type="email"
           error={getErrorMessageByFieldName('email')}
           placeholder="Email"
@@ -95,6 +102,7 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
       </FormGroup>
       <FormGroup>
         <Input
+          disabled={isSubmitting}
           value={phone}
           onChange={handlePhoneChange}
           placeholder="Telefone"
@@ -105,7 +113,7 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
         <Select
           value={categoryId}
           onChange={(event) => setCategoryId(event.target.value)}
-          disabled={isLoadingCategories}
+          disabled={isLoadingCategories || isSubmitting}
         >
           <option value="">Selecione uma categoria</option>
           {categories.map((category) => (
@@ -119,7 +127,11 @@ export default function ContactForm({ buttonLabel, onSubmit }) {
         </Select>
       </FormGroup>
       <ButtonContainer>
-        <Button type="submit" disabled={!ifFormValid}>
+        <Button
+          type="submit"
+          disabled={!ifFormValid}
+          isLoading={isSubmitting}
+        >
           {buttonLabel}
         </Button>
       </ButtonContainer>

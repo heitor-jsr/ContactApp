@@ -4,11 +4,13 @@ import dafaultTheme from '../../assets/styles/themes/default';
 import Header from '../Header';
 import { Container } from './styles';
 import Routes from '../../Routes';
+import ToastContainer from '../Toast/ToastContainer';
 
 function App() {
   return (
     <ThemeProvider theme={dafaultTheme}>
       <GlobalStyles />
+      <ToastContainer />
       <Container>
         <Header />
         <Routes />
