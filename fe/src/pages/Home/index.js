@@ -18,9 +18,10 @@ import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import ContactsService from '../../services/ContactsService';
 import toast from '../../utils/toast';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 
 export default function Home() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useSafeAsyncState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +52,7 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  }, [orderBy]);
+  }, [orderBy, setContacts]);
 
   useEffect(() => {
     loadContacts();

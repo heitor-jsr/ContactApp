@@ -8,10 +8,11 @@ import Loader from '../../components/Loader';
 import toast from '../../utils/toast';
 
 import ContactsService from '../../services/ContactsService';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 
 export default function EditContact() {
   const [isLoading, setIsLoading] = useState(true);
-  const [contactName, setContactName] = useState('');
+  const [contactName, setContactName] = useSafeAsyncState('');
 
   const contactFormRef = useRef(null);
 
@@ -36,7 +37,7 @@ export default function EditContact() {
     }
 
     loadContact();
-  }, [id, history]);
+  }, [id, history, setContactName]);
 
   async function handleSubmit(formData) {
     try {
